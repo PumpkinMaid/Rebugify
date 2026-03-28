@@ -18,7 +18,7 @@ repositories {
 	// for more information about repositories.
     maven {
         name = 'henkelmax.public'
-        url = 'https://maven.maxhenkel.de/repository/public'
+        url = 'https://maven.maxhenkel.de/releases'
     }
 }
 
