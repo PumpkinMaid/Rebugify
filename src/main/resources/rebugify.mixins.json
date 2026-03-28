@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "com.rebugify.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "refmap": "rebugify.refmap.json",
+  "mixins": [
+    "MerchantScreenHandlerMixin",
+    "TripWireHookBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+	}
+}

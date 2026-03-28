@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "rebugify",
+	"version": "${version}",
+	"name": "Rebugify",
+	"description": "Readds fixed bugs from previous versions.",
+	"authors": [
+		"Pumpkin Maid"
+	],
+	"contact": {
+		"discord": "https://discord.com/users/1476172425765978112"
+	},
+	"license": "MIT",
+	"icon": "assets/rebugify/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.rebugify.Rebugify"
+		]
+	},
+	"mixins": [
+		"rebugify.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~26.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
