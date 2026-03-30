@@ -14,11 +14,15 @@ public class Rebugify implements ModInitializer {
         public final ConfigEntry<Boolean> stringDuplicationEnabled;
         public final ConfigEntry<Boolean> tripwireHookDuplicationEnabled;
         public final ConfigEntry<Boolean> voidTradingEnabled;
+        public final ConfigEntry<Boolean> CCESuppressionEnabled;
+        public final ConfigEntry<Boolean> redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled;
 
         public Config(ConfigBuilder builder) {
             stringDuplicationEnabled = builder.booleanEntry("stringDuplicationEnabled", false);
             tripwireHookDuplicationEnabled = builder.booleanEntry("tripwireHookDuplicationEnabled", false);
             voidTradingEnabled = builder.booleanEntry("voidTradingEnabled", false);
+            CCESuppressionEnabled = builder.booleanEntry("CCESuppressionEnabled", false);
+            redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled = builder.booleanEntry("redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled", false);
         }
     }
 

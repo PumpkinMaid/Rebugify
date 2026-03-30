@@ -1,4 +1,4 @@
-package com.rebugify.mixin;
+package com.rebugify.mixin.voidTradingEnabled;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

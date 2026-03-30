@@ -2,10 +2,13 @@
   "required": true,
   "package": "com.rebugify.mixin",
   "compatibilityLevel": "JAVA_25",
-  "refmap": "rebugify.refmap.json",
   "mixins": [
-    "MerchantScreenHandlerMixin",
-    "TripWireHookBlockMixin"
+    "CCESuppressionEnabled.ShulkerBoxBlockMixin",
+    "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.ComparatorBlockMixin",
+    "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.RedstoneWireBlockMixin",
+    "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.RepeaterBlockMixin",
+    "stringAndTripwireHookDuplicationEnabled.TripWireHookBlockMixin",
+    "voidTradingEnabled.MerchantScreenHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
