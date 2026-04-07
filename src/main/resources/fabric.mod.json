@@ -22,9 +22,8 @@
 		"rebugify.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.18.5",
-		"minecraft": "~26.1",
-		"java": ">=25",
-		"fabric-api": "*"
+		"fabricloader": ">=0.18.6",
+		"minecraft": "^26.1.0-0",
+		"java": ">=25"
 	}
 }
