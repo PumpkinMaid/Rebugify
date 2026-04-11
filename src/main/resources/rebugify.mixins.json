@@ -2,8 +2,11 @@
   "required": true,
   "package": "com.rebugify.mixin",
   "compatibilityLevel": "JAVA_25",
+  "plugin": "com.rebugify.MixinPlugin",
   "mixins": [
     "CCESuppressionEnabled.ShulkerBoxBlockMixin",
+    "comparatorDuplicationEnabled.ComparatorBlockMixin",
+    "comparatorDuplicationEnabled.DiodeBlockMixin",
     "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.ComparatorBlockMixin",
     "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.RedstoneWireBlockMixin",
     "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.RepeaterBlockMixin",

@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.RedStoneWireBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+// comparatorDuplicationEnabled conflicts with this due to the nature of it. Having this enabled alongside it will cause vanilla behavior, and neither will work.
 @Mixin(RedStoneWireBlock.class)
 public abstract class RedstoneWireBlockMixin {
     @ModifyExpressionValue(

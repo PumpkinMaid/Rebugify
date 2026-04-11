@@ -10,12 +10,15 @@ import java.nio.file.Path;
 public class Rebugify implements ModInitializer {
     public static Config CONFIG;
 
+
+
     public static class Config {
         public final ConfigEntry<Boolean> stringDuplicationEnabled;
         public final ConfigEntry<Boolean> tripwireHookDuplicationEnabled;
         public final ConfigEntry<Boolean> voidTradingEnabled;
         public final ConfigEntry<Boolean> CCESuppressionEnabled;
         public final ConfigEntry<Boolean> redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled;
+        public final ConfigEntry<Boolean> comparatorDuplicationEnabled;
 
         public Config(ConfigBuilder builder) {
             stringDuplicationEnabled = builder.booleanEntry("stringDuplicationEnabled", false);
@@ -23,6 +26,7 @@ public class Rebugify implements ModInitializer {
             voidTradingEnabled = builder.booleanEntry("voidTradingEnabled", false);
             CCESuppressionEnabled = builder.booleanEntry("CCESuppressionEnabled", false);
             redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled = builder.booleanEntry("redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled", false);
+            comparatorDuplicationEnabled = builder.booleanEntry("comparatorDuplicationEnabled", false);
         }
     }
 
