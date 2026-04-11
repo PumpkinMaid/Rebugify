@@ -10,8 +10,6 @@ import java.nio.file.Path;
 public class Rebugify implements ModInitializer {
     public static Config CONFIG;
 
-
-
     public static class Config {
         public final ConfigEntry<Boolean> stringDuplicationEnabled;
         public final ConfigEntry<Boolean> tripwireHookDuplicationEnabled;
