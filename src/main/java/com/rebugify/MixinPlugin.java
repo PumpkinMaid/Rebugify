@@ -44,8 +44,8 @@ public class MixinPlugin implements IMixinConfigPlugin {
      * target's mixin set
      */
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.equals("com.rebugify.mixin.comparatorDuplicationEnabled.ComparatorBlockMixin")) return version.startsWith("26.2-snapshot-");
-        if (mixinClassName.equals("com.rebugify.mixin.comparatorDuplicationEnabled.DiodeBlockMixin")) return version.startsWith("26.2-snapshot-");
+        if (mixinClassName.equals("com.rebugify.mixin.comparatorDuplicationEnabled.ComparatorBlockMixin")) return version.startsWith("26.2");
+        if (mixinClassName.equals("com.rebugify.mixin.comparatorDuplicationEnabled.DiodeBlockMixin")) return version.startsWith("26.2");
 
         return true;
     }
