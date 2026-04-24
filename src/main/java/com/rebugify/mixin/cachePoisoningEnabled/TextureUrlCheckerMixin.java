@@ -2,6 +2,7 @@ package com.rebugify.mixin.cachePoisoningEnabled;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.authlib.yggdrasil.TextureUrlChecker;
+import com.rebugify.Rebugify;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,11 +31,15 @@ public abstract class TextureUrlCheckerMixin {
     private static String decodedDomain;
 
     @ModifyVariable(method = "<clinit>", at = @At("HEAD"))
-    private static Set<String> rebugify$modifyAllowedDomains() {
-        return Set.of(
-                ".minecraft.net",
-                ".mojang.com"
-        );
+    private static Set<String> rebugify$modifyAllowedDomains(Set<String> original) {
+        if (Rebugify.CONFIG.cachePoisoningEnabled.get()) {
+            return Set.of(
+                    ".minecraft.net",
+                    ".mojang.com"
+            );
+        } else {
+            return original;
+        }
     }
 
     @ModifyVariable(method = "isAllowedTextureDomain", at = @At(value = "STORE"), name = "decodedDomain")
@@ -45,7 +50,11 @@ public abstract class TextureUrlCheckerMixin {
 
     @ModifyReturnValue(method = "isAllowedTextureDomain", at = @At(value = "RETURN", ordinal = 3))
     private static boolean rebugify$cachePoisoningEnabled(boolean original) {
-        return rebugify$isDomainOnList(decodedDomain, ALLOWED_DOMAINS) && !rebugify$isDomainOnList(decodedDomain, BLOCKED_DOMAINS);
+        if (Rebugify.CONFIG.cachePoisoningEnabled.get()) {
+            return rebugify$isDomainOnList(decodedDomain, ALLOWED_DOMAINS) && !rebugify$isDomainOnList(decodedDomain, BLOCKED_DOMAINS);
+        } else {
+            return original;
+        }
     }
 
     @Unique
