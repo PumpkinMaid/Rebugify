@@ -17,6 +17,7 @@ public class Rebugify implements ModInitializer {
         public final ConfigEntry<Boolean> CCESuppressionEnabled;
         public final ConfigEntry<Boolean> redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled;
         public final ConfigEntry<Boolean> comparatorDuplicationEnabled;
+        public final ConfigEntry<Boolean> cachePoisoningEnabled;
 
         public Config(ConfigBuilder builder) {
             stringDuplicationEnabled = builder.booleanEntry("stringDuplicationEnabled", false);
@@ -25,6 +26,7 @@ public class Rebugify implements ModInitializer {
             CCESuppressionEnabled = builder.booleanEntry("CCESuppressionEnabled", false);
             redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled = builder.booleanEntry("redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled", false);
             comparatorDuplicationEnabled = builder.booleanEntry("comparatorDuplicationEnabled", false);
+            cachePoisoningEnabled = builder.booleanEntry("cachePoisoningEnabled", false);
         }
     }
 
