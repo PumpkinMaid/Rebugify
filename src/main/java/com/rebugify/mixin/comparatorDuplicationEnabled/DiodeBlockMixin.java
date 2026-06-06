@@ -9,8 +9,10 @@ import org.spongepowered.asm.mixin.injection.At;
 // redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled conflicts with this due to the nature of it. Having this enabled alongside it will cause vanilla behavior, and neither will work.
 @Mixin(DiodeBlock.class)
 public abstract class DiodeBlockMixin {
-    @ModifyExpressionValue(method = "neighborChanged", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
-    private boolean rebugify$comparatorDuplicationEnabled(boolean original) {
-        return Rebugify.CONFIG.comparatorDuplicationEnabled.get() || original;
-    }
+    //? if >=26.2 {
+        /*@ModifyExpressionValue(method = "neighborChanged", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
+        private boolean rebugify$comparatorDuplicationEnabled(boolean original) {
+            return Rebugify.CONFIG.comparatorDuplicationEnabled.get() || original;
+        }
+    *///?}
 }

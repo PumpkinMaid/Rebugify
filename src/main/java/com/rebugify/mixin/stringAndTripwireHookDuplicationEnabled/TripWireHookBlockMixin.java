@@ -3,6 +3,7 @@ package com.rebugify.mixin.stringAndTripwireHookDuplicationEnabled;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.rebugify.Rebugify;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TripWireHookBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,10 +19,6 @@ public abstract class TripWireHookBlockMixin {
             )
     )
     private static boolean rebugify$stringAndTripwireHookDuplicationEnabled(BlockState instance, Object o, Operation<Boolean> original) {
-        if (Rebugify.CONFIG.stringDuplicationEnabled.get() || Rebugify.CONFIG.tripwireHookDuplicationEnabled.get()) {
-            return true;
-        } else {
-            return original.call(instance, o);
-        }
+        return (Rebugify.CONFIG.stringDuplicationEnabled.get() || Rebugify.CONFIG.tripwireHookDuplicationEnabled.get()) || original.call(instance, o);
     }
 }

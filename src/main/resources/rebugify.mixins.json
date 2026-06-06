@@ -2,9 +2,7 @@
   "required": true,
   "package": "com.rebugify.mixin",
   "compatibilityLevel": "JAVA_25",
-  "plugin": "com.rebugify.MixinPlugin",
   "mixins": [
-    "cachePoisoningEnabled.TextureUrlCheckerMixin",
     "CCESuppressionEnabled.ShulkerBoxBlockMixin",
     "comparatorDuplicationEnabled.ComparatorBlockMixin",
     "comparatorDuplicationEnabled.DiodeBlockMixin",

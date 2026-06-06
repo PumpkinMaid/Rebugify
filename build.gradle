@@ -3,12 +3,10 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
+version = "${property('mod_version')}+${sc.current.version}"
 group = project.maven_group
 
-base {
-	archivesName = project.archives_base_name
-}
+base.archivesName = property('archives_base_name') as String
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -24,8 +22,8 @@ repositories {
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	minecraft "com.mojang:minecraft:${property('minecraft_version')}"
+	implementation "net.fabricmc:fabric-loader:${property('loader_version')}"
     include(implementation('de.maxhenkel.configbuilder:configbuilder:2.1.0'))
 }
 
