@@ -1,69 +1,75 @@
-//package com.rebugify.mixin.cachePoisoningEnabled;
-//
-//import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-//import com.mojang.authlib.yggdrasil.TextureUrlChecker;
-//import com.rebugify.Rebugify;
-//import org.spongepowered.asm.mixin.Final;
-//import org.spongepowered.asm.mixin.Mixin;
-//import org.spongepowered.asm.mixin.Shadow;
-//import org.spongepowered.asm.mixin.Unique;
-//import org.spongepowered.asm.mixin.injection.At;
-//import org.spongepowered.asm.mixin.injection.ModifyVariable;
-//
-//import java.util.List;
-//import java.util.Set;
-//
-//// This is purely theoretical as I have no way to test it (yet). This is based on my understanding of the exploit, if it doesn't work, please make an issue. I doubt this will get any use regardless.
-//@Mixin(TextureUrlChecker.class)
-//public abstract class TextureUrlCheckerMixin {
-//    @Final
-//    @Shadow
-//    private static List<String> ALLOWED_DOMAINS;
-//
-//    @Unique
-//    private static final List<String> BLOCKED_DOMAINS = List.of(
-//            "bugs.mojang.com",
-//            "education.minecraft.net",
-//            "feedback.minecraft.net"
-//    );
-//
-//    @Unique
-//    private static String decodedDomain;
-//
-//    @ModifyVariable(method = "<clinit>", at = @At("HEAD"))
-//    private static Set<String> rebugify$modifyAllowedDomains(Set<String> original) {
-//        if (Rebugify.CONFIG.cachePoisoningEnabled.get()) {
-//            return Set.of(
-//                    ".minecraft.net",
-//                    ".mojang.com"
-//            );
-//        } else {
-//            return original;
-//        }
-//    }
-//
-//    @ModifyVariable(method = "isAllowedTextureDomain", at = @At(value = "STORE"), name = "decodedDomain")
-//    private static String rebugify$returnDecodedDomain(String decodedDomain_) {
-//        decodedDomain = decodedDomain_;
-//        return decodedDomain;
-//    }
-//
-//    @ModifyReturnValue(method = "isAllowedTextureDomain", at = @At(value = "RETURN", ordinal = 3))
-//    private static boolean rebugify$cachePoisoningEnabled(boolean original) {
-//        if (Rebugify.CONFIG.cachePoisoningEnabled.get()) {
-//            return rebugify$isDomainOnList(decodedDomain, ALLOWED_DOMAINS) && !rebugify$isDomainOnList(decodedDomain, BLOCKED_DOMAINS);
-//        } else {
-//            return original;
-//        }
-//    }
-//
-//    @Unique
-//    private static boolean rebugify$isDomainOnList(final String domain, final List<String> list) {
-//        for (final String entry : list) {
-//            if (domain.endsWith(entry)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//}
+package com.rebugify.mixin.cachePoisoningEnabled;
+
+import com.mojang.authlib.yggdrasil.TextureUrlChecker;
+import com.rebugify.Rebugify;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.net.IDN;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Locale;
+
+@Mixin(TextureUrlChecker.class)
+public abstract class TextureUrlCheckerMixin {
+    @Unique
+    private static final List<String> ALLOWED_DOMAINS = List.of(
+            ".minecraft.net",
+            ".mojang.com"
+    );
+
+    @Unique
+    private static final List<String> BLOCKED_DOMAINS = List.of(
+            "bugs.mojang.com",
+            "education.minecraft.net",
+            "feedback.minecraft.net"
+    );
+
+    @Inject(method = "isAllowedTextureDomain", at = @At("HEAD"), cancellable = true)
+    private static void rebugify$cachePoisoningEnabled(String url, CallbackInfoReturnable<Boolean> cir) {
+        if (!Rebugify.CONFIG.cachePoisoningEnabled.get()) return;
+
+        final URI uri;
+        try {
+            uri = new URI(url).normalize();
+        } catch (final URISyntaxException ignored) {
+            cir.setReturnValue(false);
+            return;
+        }
+
+        final String scheme = uri.getScheme();
+        if (scheme == null || !List.of("http", "https").contains(scheme)) {
+            cir.setReturnValue(false);
+            return;
+        }
+
+        final String domain = uri.getHost();
+        if (domain == null) {
+            cir.setReturnValue(false);
+            return;
+        }
+
+        final String decodedDomain = IDN.toUnicode(domain);
+        if (!decodedDomain.toLowerCase(Locale.ROOT).equals(decodedDomain)) {
+            cir.setReturnValue(false);
+            return;
+        }
+
+        cir.setReturnValue(rebugify$isDomainOnList(decodedDomain, ALLOWED_DOMAINS) && !rebugify$isDomainOnList(decodedDomain, BLOCKED_DOMAINS)
+        );
+    }
+
+    @Unique
+    private static boolean rebugify$isDomainOnList(final String domain, final List<String> list) {
+        for (final String entry : list) {
+            if (domain.endsWith(entry)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

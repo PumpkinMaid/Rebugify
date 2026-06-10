@@ -3,9 +3,12 @@
   "package": "com.rebugify.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "cachePoisoningEnabled.TextureUrlCheckerMixin",
     "CCESuppressionEnabled.ShulkerBoxBlockMixin",
     "comparatorDuplicationEnabled.ComparatorBlockMixin",
     "comparatorDuplicationEnabled.DiodeBlockMixin",
+    "eidSuppressionEnabled.EntityMixin",
+    "eidSuppressionEnabled.ServerLevelMixin",
     "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.ComparatorBlockMixin",
     "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.RedstoneWireBlockMixin",
     "redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled.RepeaterBlockMixin",
