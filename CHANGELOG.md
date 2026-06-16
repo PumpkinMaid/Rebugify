@@ -1,1 +1,1 @@
-Add automatic mod publishing
+Update to 26.2
