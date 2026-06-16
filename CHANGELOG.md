@@ -1,0 +1,1 @@
+Add automatic mod publishing

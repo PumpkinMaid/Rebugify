@@ -1,6 +1,7 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
+	id "me.modmuss50.mod-publish-plugin" version "2.0.0"
 }
 
 version = "${property('mod_version')}+${sc.current.version}"
@@ -72,5 +73,21 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
+	}
+}
+
+publishMods {
+	def mr = findProperty("MODRINTH_TOKEN")
+	dryRun = mr == null
+	type = STABLE
+	file = jar.archiveFile.get()
+	displayName = "Rebugify ${project.name} ${project.version}"
+	changelog = providers.fileContents(rootProject.layout.projectDirectory.file("CHANGELOG.md")).asText
+	modLoaders.add("fabric")
+
+	modrinth {
+		projectId = "VrNBw7WG"
+		accessToken = mr
+		minecraftVersions.add(sc.current.version)
 	}
 }

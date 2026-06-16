@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(DiodeBlock.class)
 public abstract class DiodeBlockMixin {
     //? if >=26.2 {
-        @ModifyExpressionValue(method = "neighborChanged", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
+        /*@ModifyExpressionValue(method = "neighborChanged", at=@At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
         private boolean rebugify$comparatorDuplicationEnabled(boolean original) {
             return Rebugify.CONFIG.comparatorDuplicationEnabled.get() || original;
         }
-    //?}
+    *///?}
 }
