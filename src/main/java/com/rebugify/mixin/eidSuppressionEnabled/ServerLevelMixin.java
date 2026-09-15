@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 // This is ripped from https://github.com/ForwarD-NerN/AntiShadowPatch. Check that mod out as well!
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin {
+    //? if >=26.2 {
     @Shadow
     @Final
     private static AtomicInteger ENTITY_COUNTER;
@@ -22,4 +23,5 @@ public class ServerLevelMixin {
     private void rebugify$eidSuppressionEnabled(CallbackInfoReturnable<Integer> cir) {
         if (Rebugify.CONFIG.eidSuppressionEnabled.get()) cir.setReturnValue(ENTITY_COUNTER.incrementAndGet());
     }
+    //?}
 }

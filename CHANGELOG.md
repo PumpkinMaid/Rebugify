@@ -1,1 +1,2 @@
-Update to 26.2
+Update to 26.3
+Temporarily disable redstoneDustRepeaterComparatorIgnoreUpwardsStateUpdateEnabled and cachePoisoningEnabled

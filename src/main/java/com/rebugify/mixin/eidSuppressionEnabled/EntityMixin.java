@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 // This is ripped from https://github.com/ForwarD-NerN/AntiShadowPatch. Check that mod out as well!
 @Mixin(Entity.class)
 public class EntityMixin {
+    //? if >=26.2 {
     @Shadow
     private int id;
 
@@ -18,4 +19,5 @@ public class EntityMixin {
     private void rebugify$preventIllegalIdCrash(CallbackInfoReturnable<Integer> cir) {
         if (Rebugify.CONFIG.eidSuppressionEnabled.get()) cir.setReturnValue(this.id);
     }
+    //?}
 }
